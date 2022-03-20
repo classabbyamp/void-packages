@@ -1,0 +1,11 @@
+# Template file for 'chip-base'
+pkgname=chip-base
+version=0.1
+revision=1
+archs="armv7l*"
+build_style=meta
+depends="sun5i-kernel dracut"
+short_desc="Void Linux C.H.I.P. platform package"
+maintainer="classabbyamp <dev@kb6.ee>"
+license="Public Domain"
+homepage="https://www.voidlinux.org"
