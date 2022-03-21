@@ -1,0 +1,33 @@
+--- a/arch/arm/dts/sun5i-r8-chip.dts
++++ b/arch/arm/dts/sun5i-r8-chip.dts
+@@ -175,6 +175,21 @@
+ 	status = "okay";
+ };
+ 
++&nfc {
++        pinctrl-names = "default";
++        pinctrl-0 = <&nand_pins_a &nand_cs0_pins_a &nand_rb0_pins_a>;
++        status = "okay";
++
++        nand@0 {
++                #address-cells = <2>;
++                #size-cells = <2>;
++                reg = <0>;
++                allwinner,rb = <0>;
++		nand-on-flash-bbt;
++                nand-ecc-mode = "hw";
++        };
++};
++
+ &ohci0 {
+ 	status = "okay";
+ };
+@@ -295,7 +295,7 @@
+ 
+ &usb_otg {
+ 	dr_mode = "otg";
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &usb_power_supply {

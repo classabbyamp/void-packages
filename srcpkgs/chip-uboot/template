@@ -1,0 +1,41 @@
+# Template file for 'chip-uboot'
+pkgname=chip-uboot
+version=2020.10
+revision=1
+archs="armv7l*"
+wrksrc="u-boot-${version}"
+build_style=gnu-configure
+hostmakedepends="flex bc python3 python3-devel swig dtc"
+short_desc="Das U-Boot for C.H.I.P. SBC"
+maintainer="classabbyamp <dev@kb6.ee>"
+license="GPL-2.0-or-later, BSD-3-Clause"
+homepage="https://www.denx.de/wiki/U-Boot/"
+distfiles="https://ftp.denx.de/pub/u-boot/u-boot-${version}.tar.bz2"
+checksum=0d481bbdc05c0ee74908ec2f56a6daa53166cc6a78a0e4fac2ac5d025770a622
+
+do_configure() {
+	if [ -f ${FILESDIR}/config ]; then
+		msg_normal "Found a .config file, using it.\n"
+		cp -f ${FILESDIR}/config .config
+		make oldconfig
+	else
+		msg_normal "Using CHIP_defconfig.\n"
+		make CHIP_defconfig
+	fi
+}
+
+do_build() {
+	unset CFLAGS CXXFLAGS CPPFLAGS LDFLAGS
+	if [ "$CROSS_BUILD" ]; then
+		export CROSS_COMPILE="${XBPS_CROSS_TRIPLET}-"
+	fi
+	make ${makejobs} EXTRAVERSION="-${revision}"
+}
+
+do_install() {
+	vinstall u-boot-dtb.bin 0644 usr/lib/chip-uboot
+	vinstall spl/sunxi-spl.bin 0644 usr/lib/chip-uboot
+	for lic in Licenses/*.txt Licenses/Exceptions; do
+		vlicense $lic
+	done
+}

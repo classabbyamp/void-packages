@@ -120,8 +120,6 @@ do_install() {
 		install -Dm644 $file ${hdrdest}/${file}
 	done
 	mkdir -p ${hdrdest}/include
-	# Remove firmware stuff provided by the "linux-firmware" pkg.
-	rm -rf ${DESTDIR}/usr/lib/firmware
 
 	for i in acpi asm-generic clocksource config crypto drm generated linux vdso \
 		math-emu media net pcmcia scsi sound trace uapi video xen dt-bindings; do
