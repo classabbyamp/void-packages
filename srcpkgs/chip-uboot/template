@@ -35,6 +35,7 @@ do_build() {
 do_install() {
 	vinstall u-boot-dtb.bin 0644 usr/lib/chip-uboot
 	vinstall spl/sunxi-spl.bin 0644 usr/lib/chip-uboot
+	vinstall spl/sunxi-spl-with-ecc.bin 0644 usr/lib/chip-uboot
 	for lic in Licenses/*.txt Licenses/Exceptions; do
 		vlicense $lic
 	done
