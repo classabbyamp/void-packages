@@ -1,0 +1,4 @@
+if [ "${UPDATE}" = "no" ] && [ "${ACTION}" = "post" ]; then
+	mkdir -p etc/runit/runsvdir/default/
+	ln -sf /etc/sv/agetty-ttyS0 etc/runit/runsvdir/default/
+fi
