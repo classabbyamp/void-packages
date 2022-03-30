@@ -1,6 +1,6 @@
 # Template file for 'cargo-bootstrap'
 pkgname=cargo-bootstrap
-version=0.58.0
+version=1.57.0
 revision=1
 short_desc="Bootstrap binaries of Rust package manager"
 maintainer="q66 <daniel@octaforge.org>"
@@ -10,22 +10,20 @@ conflicts="cargo>=0"
 lib32disabled=yes
 nostrip=yes
 
-_bootstrap_url="https://static.rust-lang.org/dist"
-_bootver=1.57.0
-
 # we don't use upstream cargo binaries for ppc32, as they are busted (probably
 # a dependency is wrong, which results in failed signature verification when
 # updating the crates.io index)
 case "$XBPS_TARGET_MACHINE" in
-	x86_64*|i686|ppc64le) ;;
+	x86_64*|i686|ppc64le)
+		_bootstrap_url="https://static.rust-lang.org/dist"
+		;;
 	*)
 		_bootstrap_url="https://alpha.de.repo.voidlinux.org/distfiles"
-		_bootver=${version}
 		;;
 esac
 
-wrksrc="cargo-${_bootver}-${RUST_TARGET}"
-distfiles="${_bootstrap_url}/cargo-${_bootver}-${RUST_TARGET}.tar.xz"
+wrksrc="cargo-${version}-${RUST_TARGET}"
+distfiles="${_bootstrap_url}/cargo-${version}-${RUST_TARGET}.tar.xz"
 
 case "$XBPS_TARGET_MACHINE" in
 	i686)
