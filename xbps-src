@@ -81,6 +81,9 @@ remove-autodeps
 purge-distfiles
     Removes all obsolete distfiles in <hostdir>/sources.
 
+dgraph <pkgname>
+    Generate a dot-format graph of the specified pacakge's dependency tree.
+
 show <pkgname>
     Show information for the specified package.
 
@@ -822,6 +825,10 @@ case "$XBPS_TARGET" in
         ;;
     purge-distfiles)
         purge_distfiles
+        ;;
+    dgraph)
+        read_pkg ignore-problems
+        dgraph
         ;;
     show)
         read_pkg ignore-problems
