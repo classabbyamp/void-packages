@@ -1,0 +1,20 @@
+# Template file for 'sdrangel'
+pkgname=sdrangel
+version=6.20.3
+revision=1
+build_style=cmake
+configure_args=""
+hostmakedepends="pkg-config"
+makedepends="qt5-devel qt5-websockets-devel qt5-multimedia-devel qt5-location-devel
+ qt5-charts-devel qt5-serialport-devel qt5-speech-devel qt5-webengine-devel
+ qt5-webchannel-devel boost-devel fftw-devel libusb-devel libopencv-devel faad2-devel
+ zlib-devel"
+# TODO: codec2 libsigmf libcm256cc serialdv
+depends=""
+short_desc="SDR and signal analyzer frontend to various hardware"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/f4exb/sdrangel"
+changelog="https://raw.githubusercontent.com/f4exb/sdrangel/master/CHANGELOG"
+distfiles="https://github.com/f4exb/sdrangel/archive/refs/tags/v${version}.tar.gz"
+checksum=d149b946ca7ef3101008970faa1bf79d5fc68201f5d2b3b8f77562c36d06273e
