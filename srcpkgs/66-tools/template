@@ -14,8 +14,8 @@ short_desc="Small tools and helpers for service scripts execution"
 maintainer="mobinmob <mobinmob@disroot.org>"
 license="ISC"
 homepage="http://web.obarun.org/software/index.html"
-changelog="https://framagit.org/Obarun/66-tools/-/raw/master/doc/upgrade.md"
-distfiles="https://framagit.org/Obarun/66-tools/-/archive/v${version}/66-tools-v${version}.tar.gz"
+changelog="https://git.obarun.org/Obarun/66-tools/-/raw/master/doc/upgrade.md"
+distfiles="https://git.obarun.org/Obarun/66-tools/-/archive/v${version}/66-tools-v${version}.tar.gz"
 checksum=58f072ce1bbc6b6440046d3dc860ca31bb3f39801d09853141006dd5f7041dbb
 
 post_install() {

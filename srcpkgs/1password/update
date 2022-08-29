@@ -1,0 +1,2 @@
+site="https://releases.1password.com/linux/"
+pattern="Updated to \K[\d.]+(?= on)"
