@@ -1,0 +1,2 @@
+site="https://download.anydesk.com/linux/"
+pattern='_\K[\d.]+(?=-1_x86_64\.rpm)'

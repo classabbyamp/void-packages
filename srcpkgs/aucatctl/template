@@ -8,8 +8,8 @@ makedepends="sndio-devel"
 short_desc="Control aucat and/or sndiod volume through MIDI"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="ISC"
-homepage="http://www.sndio.org/"
-distfiles="http://www.sndio.org/${pkgname}-${version}.tar.gz"
+homepage="https://sndio.org/"
+distfiles="https://sndio.org/${pkgname}-${version}.tar.gz"
 checksum=524f2fae47db785234f166551520d9605b9a27551ca438bd807e3509ce246cf0
 
 case "$XBPS_TARGET_MACHINE" in

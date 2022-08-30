@@ -1,0 +1,1 @@
+pattern='aspell6-it-\K[\d.]+(?=-[\d-]+\.tar)'

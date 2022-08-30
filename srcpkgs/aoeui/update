@@ -1,0 +1,2 @@
+site="https://raw.githubusercontent.com/pklausler/aoeui/master/LOG"
+pattern=' \K[\d.]+(?= release)'

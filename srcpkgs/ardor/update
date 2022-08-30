@@ -1,0 +1,2 @@
+site="https://bitbucket.org/Jelurida/ardor/downloads/"
+pkgname="$pkgname-client"

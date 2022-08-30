@@ -1,0 +1,1 @@
+pattern='aspell-nl-\K[\d.]+(?=-\d+\.tar)'

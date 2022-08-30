@@ -1,0 +1,2 @@
+site="https://download.armagetronad.org/allreleases"
+pattern=">\K[\d.]+(?= released<)"
