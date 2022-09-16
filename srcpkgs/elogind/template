@@ -1,6 +1,6 @@
 # Template file for 'elogind'
 pkgname=elogind
-version=246.10
+version=246.1011
 revision=2
 build_style=meson
 configure_args="-Dcgroup-controller=elogind -Dhalt-path=/usr/bin/halt
