@@ -19,7 +19,7 @@ while read -r pkg; do
 		for dep in $(xbps-query $ADDREPO -RX "$subpkg"); do
 			xbps-install \
 				$ROOTDIR $ADDREPO \
-				-Sny \
+				-Snyd \
 				"$subpkg" "$(xbps-uhelper getpkgname "$dep")"
 			if [ $? -eq 8 ]; then
 				/bin/echo -e "\x1b[31mFailed to install '$subpkg' and '$dep'\x1b[0m"
