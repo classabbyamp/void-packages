@@ -3,8 +3,8 @@ runit(8): don't leak SIGCONT SIG_IGN into all child processes
 https://inbox.vuxu.org/supervision/87tug3vzex.fsf@vuxu.org/
 https://github.com/ksh93/ksh/issues/301
 
---- runit-2.1.2/src/runit.c.orig
-+++ runit-2.1.2/src/runit.c
+--- a/src/runit.c.orig
++++ b/src/runit.c
 @@ -125,7 +125,7 @@
        sig_unblock(sig_child);
        sig_uncatch(sig_child);
