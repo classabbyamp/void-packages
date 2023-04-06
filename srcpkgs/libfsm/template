@@ -1,0 +1,49 @@
+# Template file for 'libfsm'
+pkgname=libfsm
+version=0.0.0
+_libfsm_commit=275f0abcf2b1164bb8f3a98c0e2dce41c5c1468a
+_kmkf_commit=8809bf65d44ef1686a6e686d5695874abd2cc17c
+revision=1
+#archs="i686 x86_64"
+wrksrc=libfsm-${_libfsm_commit}
+#create_wrksrc=yes
+make_cmd="bmake"
+#configure_args=""
+#make_build_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="bmake"
+makedepends=""
+depends="graphviz"
+short_desc="tools for NFAs, DFAs, regular expressions, and lexical analysis"
+maintainer="Abigail G <void@placeviolette.net>"
+license="BSD-2-Clause"
+homepage="https://github.com/katef/libfsm"
+distfiles="https://github.com/katef/libfsm/archive/${_libfsm_commit}.tar.gz
+ https://github.com/katef/kmkf/archive/${_kmkf_commit}.tar.gz"
+checksum="339e6da8ea48ae858ff9538aa722f9822a14bee4211521249152aa5a396e62c7
+ 0438bbb653dca272f1d41c4e2db4f717309909201e064f2fe5728e0e670ea283"
+
+post_extract() {
+    echo ${PWD} ${wrksrc}
+    # move submodule to proper location
+    rmdir share/git/kmkf
+
+    mv -v ../kmkf-${_kmkf_commit} share/git/kmkf
+}
+
+do_install() {
+    PREFIX="${PKGDESTDIR}/usr" bmake -r install
+}
+
+libfsm-devel_package() {
+    short_desc+=" - development files"
+    depends="${sourcepkg}>=${version}_${revision}"
+    pkg_install() {
+        vmove usr/include
+        vmove "usr/lib/*.a"
+        vmove "usr/lib/*.so"
+        vmove usr/share/pkgconfig
+    }
+}
+
