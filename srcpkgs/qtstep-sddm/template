@@ -1,0 +1,25 @@
+# Template file for 'qtstep-sddm'
+pkgname=qtstep-sddm
+_commit=36dc0d37d7159e3562f370a6a697124e379cf665
+version=0.1+36dc0d37
+revision=1
+wrksrc="qtstep-${_commit}"
+makedepends="bc librsvg-utils"
+depends="sddm"
+short_desc="SDDM theme inspired by WindowMaker/NextStep"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="GPL-3.0-only"
+homepage="https://www.opencode.net/abgr/qtstep"
+distfiles="https://www.opencode.net/abgr/qtstep/-/archive/${_commit}/qtstep-${_commit}.tar.gz"
+checksum=81933d98967c0f88b62c5447098588239f414c51543c249bfb7e1c40a1c99063
+
+do_build() {
+	cd sddm/QTStep.source
+	./make_theme.sh colors.OpenStep
+}
+
+do_install() {
+    vmkdir usr/share/sddm/themes
+    vcopy sddm/QTStepOpenStep usr/share/sddm/themes
+}
+
