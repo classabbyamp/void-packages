@@ -1,0 +1,23 @@
+# Template file for 'font-input'
+pkgname=font-input
+version=1.2
+revision=1
+create_wrksrc=yes
+hostmakedepends="unzip"
+depends="font-util"
+short_desc="Fonts for code from DJR & Font Bureau"
+maintainer="Abigail G <void@placeviolette.net>"
+license="custom:Font Software License Agreement"
+homepage="https://input.djr.com"
+distfiles="https://input.djr.com/build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email=>Input-Font.zip"
+checksum=5b2c41aabcc1af8add6d11348acaae0bcc4970eeab16861e796a16c981cc1d59
+
+font_dirs="/usr/share/fonts/TTF"
+
+do_install() {
+	vmkdir usr/share/fonts/TTF
+	for f in Input_Fonts/Input*/Input*/*.ttf; do
+		vinstall $f 644 usr/share/fonts/TTF
+	done
+	vlicense LICENSE.txt
+}
