@@ -1,0 +1,27 @@
+# Template file for 'motdd'
+pkgname=motdd
+version=1.0.2
+revision=1
+depends="snooze"
+short_desc="Small daemon to manage /etc/motd"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="BSD-3-Clause"
+homepage="https://github.com/classabbyamp/motdd"
+distfiles="https://github.com/classabbyamp/motdd/archive/refs/tags/v${version}.tar.gz"
+checksum=e4e3a01a237411a4f41486dc57f927835616753c5783f38d71e1728a2a917fbc
+
+do_install() {
+	vbin bin/update-motd
+	vsv motdd
+	vlicense LICENCE
+	for f in examples/basic/*; do vinstall $f 755 usr/share/update-motd.d; done
+}
+
+fancy-motd_package() {
+	conf_files="/etc/update-motd.d/*"
+	depends="${sourcepkg} figlet lolcat-c curl"
+	pkg_install() {
+		vlicense LICENCE
+		for f in examples/fancy/*; do vinstall $f 755 etc/update-motd.d; done
+	}
+}
