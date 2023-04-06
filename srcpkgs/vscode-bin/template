@@ -1,0 +1,36 @@
+# Template file for 'vscode-bin'
+pkgname=vscode-bin
+version=1.77.2
+revision=1
+archs="x86_64"
+depends="lsof xdg-utils"
+short_desc="Microsoft Code for Linux (official binary)"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="custom:Commercial"
+homepage="https://code.visualstudio.com"
+distfiles="https://update.code.visualstudio.com/${version}/linux-x64/stable>vscode-${version}.tar.gz"
+checksum=f270f4195e3af44581bc2ad12227d641fc43b4e79f95f9d4fde1ad2fa0bfa638
+nopie=yes
+
+post_extract() {
+	_TELEMETRY_URLS="(dc\.services\.visualstudio\.com)|(vortex\.data\.microsoft\.com)|(mobile\.events\.data\.microsoft\.com)"
+	_REPLACEMENT="s/$_TELEMETRY_URLS/0\.0\.0\.0/g"
+	grep -rl -E $_TELEMETRY_URLS | xargs sed -i -E $_REPLACEMENT
+}
+
+do_install() {
+	vmkdir usr/bin
+	ln -s /usr/lib/code/bin/code ${DESTDIR}/usr/bin/code
+
+	vmkdir usr/lib/code
+	vcopy '*' usr/lib/code
+
+	vcompletion resources/completions/bash/code bash code
+	vcompletion resources/completions/zsh/_code zsh code
+
+	vinstall ${FILESDIR}/code.desktop 644 usr/share/applications
+	vinstall ${FILESDIR}/code-url-handler.desktop 644 usr/share/applications
+	vinstall ${FILESDIR}/code-workspace.xml 644 usr/share/mime/packages
+
+	vlicense resources/app/LICENSE.rtf
+}
