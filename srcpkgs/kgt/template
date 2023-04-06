@@ -1,0 +1,31 @@
+# Template file for 'kgt'
+pkgname=kgt
+version=0.0.0
+_kgt_commit=a7cbc52d368e413a3f1212c0fafccc05b2a42606
+_kmkf_commit=8809bf65d44ef1686a6e686d5695874abd2cc17c
+revision=1
+#archs="i686 x86_64"
+wrksrc=kgt-${_kgt_commit}
+hostmakedepends="bmake"
+makedepends=""
+depends="graphviz"
+short_desc="tool to convert grammars between forms"
+maintainer="Abigail G <void@placeviolette.net>"
+license="BSD-2-Clause"
+homepage="https://github.com/katef/kgt"
+distfiles="https://github.com/katef/kgt/archive/${_kgt_commit}.tar.gz
+ https://github.com/katef/kmkf/archive/${_kmkf_commit}.tar.gz"
+checksum="5ce56d8e654fffeb9fe205f8d396909f0db7d9684880aa3a95164d1ca79ca36b
+ 0438bbb653dca272f1d41c4e2db4f717309909201e064f2fe5728e0e670ea283"
+
+post_extract() {
+    echo ${PWD} ${wrksrc}
+    # move submodule to proper location
+    rmdir share/git/kmkf
+
+    mv -v ../kmkf-${_kmkf_commit} share/git/kmkf
+}
+
+do_install() {
+    PREFIX="${PKGDESTDIR}/usr" bmake -r install
+}
