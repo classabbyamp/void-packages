@@ -21,11 +21,17 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     strategy:
       matrix:
         libc:
           - glibc
           - musl
+
     steps:
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
