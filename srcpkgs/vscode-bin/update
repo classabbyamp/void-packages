@@ -1,2 +1,3 @@
 pkgname=vscode
 site=https://github.com/microsoft/vscode/tags
+pattern='/archive/refs/tags/(v?|\Q'"${pkgname}"'\E[-_])?\K[\d.]+(?=\.tar\.gz")'
