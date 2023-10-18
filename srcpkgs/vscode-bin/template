@@ -1,6 +1,6 @@
 # Template file for 'vscode-bin'
 pkgname=vscode-bin
-version=1.82.2
+version=1.83.1
 revision=1
 archs="x86_64"
 depends="lsof xdg-utils"
@@ -9,7 +9,7 @@ maintainer="classabbyamp <void@placeviolette.net>"
 license="custom:Commercial"
 homepage="https://code.visualstudio.com"
 distfiles="https://update.code.visualstudio.com/${version}/linux-x64/stable>vscode-${version}.tar.gz"
-checksum=9fe02b93c6f2b2f414d4310ebcd64959d913b8b67b9f07bfa585333e3f99df44
+checksum=17032e9b04671a941fcd3174576838afc60375b071d8d5835d4fe8f7d585c180
 nopie=yes
 
 post_extract() {
@@ -20,7 +20,7 @@ post_extract() {
 
 do_install() {
 	vmkdir usr/bin
-	ln -s /usr/lib/code/bin/code ${DESTDIR}/usr/bin/code
+	ln -s /usr/lib/code/bin/code "${DESTDIR}"/usr/bin/code
 
 	vmkdir usr/lib/code
 	vcopy '*' usr/lib/code
@@ -28,9 +28,9 @@ do_install() {
 	vcompletion resources/completions/bash/code bash code
 	vcompletion resources/completions/zsh/_code zsh code
 
-	vinstall ${FILESDIR}/code.desktop 644 usr/share/applications
-	vinstall ${FILESDIR}/code-url-handler.desktop 644 usr/share/applications
-	vinstall ${FILESDIR}/code-workspace.xml 644 usr/share/mime/packages
+	vinstall "${FILESDIR}"/code.desktop 644 usr/share/applications
+	vinstall "${FILESDIR}"/code-url-handler.desktop 644 usr/share/applications
+	vinstall "${FILESDIR}"/code-workspace.xml 644 usr/share/mime/packages
 
 	vlicense resources/app/LICENSE.rtf
 }
