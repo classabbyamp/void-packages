@@ -62,7 +62,7 @@ jobs:
 
     container:
       image: ghcr.io/void-linux/void-buildroot-${{ matrix.config.libc }}:20230904R2
-      options: --platform ${{ matrix.config.platform }}
+      options: --platform ${{ matrix.config.platform }} --hostname void-packages-ci
       env:
         PATH: '/usr/libexec/chroot-git:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
         ARCH: '${{ matrix.config.arch }}'
