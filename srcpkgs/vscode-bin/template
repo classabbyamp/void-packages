@@ -1,6 +1,6 @@
 # Template file for 'vscode-bin'
 pkgname=vscode-bin
-version=1.83.1
+version=1.85.1
 revision=1
 archs="x86_64"
 depends="lsof xdg-utils"
@@ -9,7 +9,7 @@ maintainer="classabbyamp <void@placeviolette.net>"
 license="custom:Commercial"
 homepage="https://code.visualstudio.com"
 distfiles="https://update.code.visualstudio.com/${version}/linux-x64/stable>vscode-${version}.tar.gz"
-checksum=17032e9b04671a941fcd3174576838afc60375b071d8d5835d4fe8f7d585c180
+checksum=01669d69e567a5290336b1d2f7b2f0f1816e9d7099004b81a26f8f40ee17c9fc
 nopie=yes
 
 post_extract() {
