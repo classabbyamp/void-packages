@@ -3,8 +3,9 @@ pkgname=kdeplasma-addons
 version=6.0.4
 revision=1
 build_style=cmake
+build_helper=qemu
 configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake"
-hostmakedepends="extra-cmake-modules qt6-tools pkg-config gettext"
+hostmakedepends="extra-cmake-modules qt6-base qt6-tools pkg-config gettext"
 makedepends="kf6-kdeclarative-devel kf6-kholidays-devel kf6-krunner-devel
  kf6-sonnet-devel kf6-kunitconversion-devel kf6-knewstuff-devel
  plasma5support-devel qt6-qt5compat-devel kf6-kio-devel
@@ -16,6 +17,10 @@ license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://invent.kde.org/plasma/kdeplasma-addons"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
 checksum=6d2d6df4775ba6939b43b438d7de9ab1fc611a212a7eedf470de4d56986b3b18
+
+if [ $CROSS_BUILD ]; then
+    hostmakedepends+=" kf6-kcmutils-devel kf6-kpackage-devel"
+fi
 
 kdeplasma-addons5_package() {
 	build_style=meta
