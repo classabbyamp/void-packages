@@ -1,0 +1,35 @@
+--- a/src/utils/file.cpp
++++ b/src/utils/file.cpp
+@@ -152,6 +152,13 @@
+     return stat(filename.c_str(), &buffer) == 0;
+   }
+ 
++  bool readable(const string& filename) {
++    char c;
++    std::ifstream in(filename, std::ifstream::in);
++    in.get(c);
++    return in.good();
++  }
++
+   /**
+    * Checks if the given path exists and is a file
+    */
+@@ -183,7 +194,7 @@
+    */
+   string pick(const vector<string>& filenames) {
+     for (auto&& f : filenames) {
+-      if (exists(f)) {
++      if (exists(f) && readable(f)) {
+         return f;
+       }
+     }
+--- a/include/utils/file.hpp
++++ b/include/utils/file.hpp
+@@ -82,6 +82,7 @@
+ 
+ namespace file_util {
+   bool exists(const string& filename);
++  bool readable(const string& filename);
+   bool is_file(const string& filename);
+   bool is_dir(const string& filename);
+   string pick(const vector<string>& filenames);
