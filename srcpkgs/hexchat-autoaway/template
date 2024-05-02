@@ -1,0 +1,14 @@
+# Template file for 'hexchat-autoaway'
+pkgname=hexchat-autoaway
+version=2.0
+revision=1
+build_style=cmake
+hostmakedepends="pkg-config"
+makedepends="libX11-devel libXScrnSaver-devel hexchat-devel gtk+-devel"
+depends="hexchat"
+short_desc="HexChat plugin to set away on idle"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="GPL-3.0-only"
+homepage="https://github.com/andreyv/hexchat-autoaway"
+distfiles="https://github.com/andreyv/hexchat-autoaway/archive/refs/tags/v${version}.tar.gz"
+checksum=608ba6b934869a5fe5d7402a178e2a24101d71eda2cb9b4b19e09058023eb8dc
