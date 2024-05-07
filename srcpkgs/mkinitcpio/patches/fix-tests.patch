@@ -1,29 +1,40 @@
-Tests expecting unwritable directories fail in CI containers, regardless of
-directory modes.
+From d165901a405a2763bfbbe3078fad6768bc531d8f Mon Sep 17 00:00:00 2001
+From: classabbyamp <dev@placeviolette.net>
+Date: Mon, 6 May 2024 23:38:33 -0400
+Subject: [PATCH] test/cases/functions.bats: don't check for writability as
+ root
 
+it doesn't work
+
+noticed in void's CI, which uses containers and thus runs as root
+---
+ test/cases/functions.bats | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/test/cases/functions.bats b/test/cases/functions.bats
+index 6ab9b2c..cdb7e5d 100644
 --- a/test/cases/functions.bats
 +++ b/test/cases/functions.bats
-@@ -162,21 +162,11 @@
- }
- 
+@@ -185,6 +185,9 @@ kver_zimage() {
  @test "initialize_buildroot unwriteable parent directory" {
--    local parentdir="${BATS_RUN_TMPDIR}/${BATS_TEST_NAME}/"
--
--    install -dm555 "$parentdir"
--    TMPDIR="$parentdir" run initialize_buildroot 'none'
--    assert_failure
--    assert_output "==> ERROR: Failed to create temporary working directory in $parentdir"
-+    true
- }
+     local parentdir="${BATS_RUN_TMPDIR}/${BATS_TEST_NAME}/"
  
++    if (( EUID == 0 )); then
++        skip "can't check writability as root"
++    fi
+     install -dm555 "$parentdir"
+     TMPDIR="$parentdir" run initialize_buildroot 'none'
+     assert_failure
+@@ -194,6 +197,9 @@ kver_zimage() {
  @test "initialize_buildroot unwriteable working directory" {
--    local generatedir="${BATS_RUN_TMPDIR}/${BATS_TEST_NAME}/workdir"
--
--    install -dm555 "$generatedir"
--    run initialize_buildroot 'none' "$generatedir"
--    assert_failure
--    assert_output "==> ERROR: Unable to write to build root: $generatedir"
-+    true
- }
+     local generatedir="${BATS_RUN_TMPDIR}/${BATS_TEST_NAME}/workdir"
  
- @test "add_file parent directory is a symlink" {
++    if (( EUID == 0 )); then
++        skip "can't check writability as root"
++    fi
+     install -dm555 "$generatedir"
+     run initialize_buildroot 'none' "$generatedir"
+     assert_failure
+-- 
+2.44.0
+
