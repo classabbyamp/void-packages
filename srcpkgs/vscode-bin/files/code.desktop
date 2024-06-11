@@ -2,7 +2,7 @@
 Name=Visual Studio Code
 Comment=Code Editing. Refined.
 GenericName=Text Editor
-Exec=code --no-sandbox --unity-launch %F
+Exec=code --no-sandbox %F
 Icon=/usr/lib/code/resources/app/resources/linux/code.png
 Type=Application
 StartupNotify=false
