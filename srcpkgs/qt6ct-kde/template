@@ -1,10 +1,10 @@
 # Template file for 'qt6ct-kde'
 pkgname=qt6ct-kde
 version=0.9
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="qt6-tools qt6-base"
-makedepends="qt6-base-devel qt6-declarative-devel kf6-qqc2-desktop-style-devel"
+makedepends="qt6-base-private-devel qt6-declarative-devel kf6-qqc2-desktop-style-devel"
 depends="qt6-svg kf6-qqc2-desktop-style kf6-sonnet"
 short_desc="Qt6 Configuration Tool - with KDE theme support"
 maintainer="classabbyamp <void@placeviolette.net>"
