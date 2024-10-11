@@ -1,8 +1,8 @@
 # Template file for 'libunicode'
 pkgname=libunicode
-version=0.4.0
+version=0.6.0
 revision=1
-_ucd_version=15.0.0
+_ucd_version=16.0.0
 build_style=cmake
 build_helper="qemu"
 configure_args="-DLIBUNICODE_TESTING=OFF"
@@ -15,8 +15,8 @@ homepage="https://github.com/contour-terminal/libunicode"
 changelog="https://github.com/contour-terminal/libunicode/raw/master/Changelog.md"
 distfiles="https://github.com/contour-terminal/libunicode/archive/refs/tags/v${version}.tar.gz
  https://www.unicode.org/Public/${_ucd_version}/ucd/UCD.zip>ucd-${_ucd_version}.zip"
-checksum="a5c8ba2cd3df539985bfafe43f812de143a56f01e4074e95831a37a13606beda
- 5fbde400f3e687d25cc9b0a8d30d7619e76cb2f4c3e85ba9df8ec1312cb6718c"
+checksum="0c217f8264000f1b8c36e78969cb9cf91ac97de937cc141ab78e6b1ad7f404ef
+ c86dd81f2b14a43b0cc064aa5f89aa7241386801e35c59c7984e579832634eb2"
 skip_extraction="ucd-${_ucd_version}.zip"
 
 if [ "$XBPS_TARGET_WORDSIZE" -eq 32 ]; then

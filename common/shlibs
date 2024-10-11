@@ -4508,9 +4508,9 @@ libdraco.so.8 draco-1.5.6_1
 libpdalcpp.so.17 libpdal-2.7.0_1
 libdisplay-info.so.1 libdisplay-info-0.1.1_1
 libsqsh.so.1 libsqsh-1.3.0_1
-libunicode.so.0.4 libunicode-0.4.0_1
-libunicode_ucd.so.0.4 libunicode-0.4.0_1
-libunicode_loader.so.0.4 libunicode-0.4.0_1
+libunicode.so.0.6 libunicode-0.6.0_1
+libunicode_ucd.so.0.6 libunicode-0.6.0_1
+libunicode_loader.so.0.6 libunicode-0.6.0_1
 force-stage.so.0.1 void-force-stage-0.1_1
 libliftoff.so.0 libliftoff-0.4.1_1
 libscfg.so libscfg-0.1.1_1
