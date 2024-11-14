@@ -12,9 +12,12 @@ do_check() {
 		if python3 -c 'import xdist' >/dev/null 2>&1; then
 			testjobs="-n $XBPS_MAKEJOBS"
 		fi
+		if [ -n "$XBPS_PYTHON_IMPORT_CHECK" ]; then
+			import_check_args="-p no:python --import-check"
+		fi
 		PYTHONPATH="$(cd build/lib* && pwd)" PY_IGNORE_IMPORTMISMATCH=1 \
 			${make_check_pre} \
-			python3 -m pytest ${testjobs} ${make_check_args} ${make_check_target}
+			python3 -m pytest ${testjobs} ${import_check_args} ${make_check_args} ${make_check_target}
 	else
 		# Fall back to deprecated setup.py test orchestration without pytest
 		if [ -z "$make_check_target" ]; then

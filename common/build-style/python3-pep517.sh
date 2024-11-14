@@ -19,6 +19,9 @@ do_build() {
 }
 
 do_check() {
+	if [ -n "$XBPS_PYTHON_IMPORT_CHECK" ]; then
+		import_check_args="--import-check"
+	fi
 	if ! python3 -c 'import pytest' >/dev/null 2>&1; then
 		msg_warn "Testing of python3-pep517 templates requires pytest\n"
 		return 0
@@ -34,7 +37,7 @@ do_check() {
 		${make_install_args} ${make_install_target:-dist/*.whl}
 
 	PATH="${testdir}/usr/bin:${PATH}" PYTHONPATH="${testdir}/${py3_sitelib}" PY_IGNORE_IMPORTMISMATCH=1 \
-		${make_check_pre} pytest3 ${testjobs} ${make_check_args} ${make_check_target}
+		${make_check_pre} pytest3 ${testjobs} ${import_check_args} ${make_check_args} ${make_check_target}
 }
 
 do_install() {

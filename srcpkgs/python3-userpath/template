@@ -5,6 +5,7 @@ revision=1
 build_style=python3-pep517
 hostmakedepends="hatchling python3-wheel"
 depends="python3-click"
+checkdepends="$depends"
 short_desc="Cross-platform tool for adding locations to the user PATH"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="MIT, Apache-2.0"
