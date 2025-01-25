@@ -1,0 +1,13 @@
+# Template file for 'mdbook-typst'
+pkgname=mdbook-typst
+version=0.1.7
+revision=1
+build_style=cargo
+depends="typst"
+short_desc="Mdbook backend to output Typst markup, pdf, png, or svg"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="MIT OR Apache-2.0"
+homepage="https://github.com/LegNeato/mdbook-typst"
+changelog="https://github.com/LegNeato/mdbook-typst/raw/refs/heads/main/CHANGELOG.md"
+distfiles="https://github.com/LegNeato/mdbook-typst/archive/refs/tags/v${version}.tar.gz"
+checksum=e68d361ea723f4e3892ba6e75211f2fe8420084a7036b607c0b808cf24bc2379
