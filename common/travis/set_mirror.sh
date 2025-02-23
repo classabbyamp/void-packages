@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 TRAVIS_MIRROR=repo-ci.voidlinux.org
 
