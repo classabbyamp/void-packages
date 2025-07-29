@@ -1,0 +1,19 @@
+# Template file for 'python3-sounddevice'
+pkgname=python3-sounddevice
+version=0.5.2
+revision=1
+build_style=python3-pep517
+hostmakedepends="python3-setuptools python3-cffi"
+depends="portaudio python3-cffi"
+short_desc="Play and record sound with Python"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="MIT"
+homepage="https://python-sounddevice.readthedocs.io"
+changelog="https://python-sounddevice.readthedocs.io/en/latest/version-history.html"
+distfiles="https://github.com/spatialaudio/python-sounddevice/archive/refs/tags/${version}.tar.gz"
+checksum=bb0f97e9a6117b1adde909b5cee8ed081feb4da11567691904e10a07722d3bbd
+make_check=no # no tests
+
+post_install() {
+	vlicense LICENSE
+}
