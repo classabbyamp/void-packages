@@ -1,0 +1,17 @@
+# Template file for 'python3-appdata'
+pkgname=python3-appdata
+version=2.2.1
+revision=1
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+short_desc="Access app data paths"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="MIT"
+homepage="https://github.com/VoIlAlex/appdata"
+distfiles="${PYPI_SITE}/a/appdata/appdata-${version}.tar.gz"
+checksum=3122241e1689eb8be36aee28af3bf080fe216e3cc8fabb5af67826b149837a92
+make_check=no # assumes it's in a dir called appdata
+
+post_install() {
+	vlicense LICENSE.md
+}
