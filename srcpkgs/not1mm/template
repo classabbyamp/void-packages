@@ -1,0 +1,23 @@
+# Template file for 'not1mm'
+pkgname=not1mm
+version=25.7.29.2
+revision=1
+build_style=python3-pep517
+hostmakedepends="python3-setuptools"
+depends="python3-Levenshtein python3-appdata python3-dicttoxml python3-notctyparser
+ python3-numpy python3-pyqt6 python3-pyserial python3-rapidfuzz python3-requests
+ python3-sounddevice python3-soundfile python3-xmltodict python3-pyqt6-devel-tools"
+short_desc="Ham radio contest logger"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/mbridak/not1mm"
+changelog="https://github.com/mbridak/not1mm/raw/refs/heads/master/CHANGELOG.md"
+distfiles="${PYPI_SITE}/n/not1mm/not1mm-${version}.tar.gz"
+checksum=90081919ead9a36251bb2082ba1c64410792c4fde40331e739890f05b3bad4c4
+
+post_install() {
+	vinstall not1mm/data/k6gte-not1mm.desktop 0644 usr/share/applilcations
+	for sz in 32 64 128; do
+		vinstall "not1mm/data/k6gte.not1mm-$sz.png" 0644 "usr/share/icons/hicolor/${sz}x${sz}/apps" k6gte-not1mm.png
+	done
+}

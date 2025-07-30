@@ -1,0 +1,12 @@
+this is done in the template
+
+--- a/not1mm/__main__.py
++++ b/not1mm/__main__.py
+@@ -4665,7 +4665,6 @@
+     logger.debug(
+         f"Resolved OS file system paths: MODULE_PATH {fsutils.MODULE_PATH}, USER_DATA_PATH {fsutils.USER_DATA_PATH}, CONFIG_PATH {fsutils.CONFIG_PATH}"
+     )
+-    install_icons()
+     sys.exit(app.exec())
+ 
+ 
