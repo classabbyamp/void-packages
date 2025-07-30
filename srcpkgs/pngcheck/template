@@ -1,0 +1,17 @@
+# Template file for 'pngcheck'
+pkgname=pngcheck
+version=4.0.0
+revision=1
+build_style=cmake
+makedepends="zlib-devel"
+short_desc="Command-line utility for checking PNG image files"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="MIT"
+homepage="http://www.libpng.org/pub/png/apps/pngcheck.html"
+changelog="https://github.com/pnggroup/pngcheck/raw/main/CHANGELOG"
+distfiles="https://github.com/pnggroup/pngcheck/archive/refs/tags/v${version}.tar.gz"
+checksum=ed13f49bc1205bdf7cd0fc208b6e0eef550da021d1631f7180f718a4db379398
+
+post_install() {
+	vlicense LICENSE
+}
