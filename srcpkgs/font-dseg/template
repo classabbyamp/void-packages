@@ -1,0 +1,18 @@
+# Template file for 'font-dseg'
+pkgname=font-dseg
+version=0.46
+revision=1
+depends="font-util"
+short_desc="Font family which imitates seven and fourteen segment display"
+maintainer="classabbyamp <dev@placeviolette.net>"
+license="OFL-1.1"
+homepage="https://www.keshikan.net/fonts-e.html"
+distfiles="https://github.com/keshikan/DSEG/releases/download/v${version}/fonts-DSEG_v${version//./}.zip"
+checksum=a6c2f43520971ca8067262e78d49025e605f749bf716ec5394bad9a0ee1c238c
+
+font_dirs="/usr/share/fonts/DSEG"
+
+do_install() {
+	vmkdir usr/share/fonts/DSEG
+	vcopy "DSEG*/" usr/share/fonts/DSEG
+}
