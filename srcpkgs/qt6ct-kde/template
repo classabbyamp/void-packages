@@ -1,7 +1,7 @@
 # Template file for 'qt6ct-kde'
 pkgname=qt6ct-kde
-version=0.9
-revision=3
+version=0.10
+revision=1
 build_style=cmake
 hostmakedepends="qt6-tools qt6-base"
 makedepends="qt6-base-private-devel qt6-declarative-devel kf6-qqc2-desktop-style-devel"
@@ -9,9 +9,9 @@ depends="qt6-svg kf6-qqc2-desktop-style kf6-sonnet"
 short_desc="Qt6 Configuration Tool - with KDE theme support"
 maintainer="classabbyamp <void@placeviolette.net>"
 license="BSD-2-Clause"
-homepage="https://github.com/trialuser02/qt6ct"
-distfiles="https://github.com/trialuser02/qt6ct/archive/refs/tags/${version}.tar.gz"
-checksum=aa49c4fb51a82dd6947cd9c8dee9b3a1fdd4fbbc9f3c8c5c2d33fa1de9e8826e
+homepage="https://www.opencode.net/trialuser/qt6ct"
+distfiles="https://www.opencode.net/trialuser/qt6ct/-/archive/${version}/qt6ct-${version}.tar.gz"
+checksum=5ba90fac7bebb87aacd0454736f5d062b12543c11df9110665877b834b63de63
 conflicts="qt6ct>=0"
 replaces="qt6ct>=0"
 
