@@ -1,7 +1,7 @@
 # Template file for 'qt6-pdf'
 pkgname=qt6-pdf
 version=6.8.2
-revision=2
+revision=3
 build_style=cmake
 configure_args="-DQT_FEATURE_qtpdf_build=ON
  -DQT_FEATURE_qtpdf_widgets_build=ON
@@ -9,7 +9,7 @@ configure_args="-DQT_FEATURE_qtpdf_build=ON
  -DNinja_EXECUTABLE=$XBPS_WRAPPERDIR/ninja
  -DQT_BUILD_EXAMPLES=ON"
 hostmakedepends="qt6-base-devel perl pkg-config nodejs python3-html5lib
- qt6-declarative-host-tools gperf bison flex nss-devel"
+ qt6-declarative-host-tools gperf bison flex nss-devel gn"
 makedepends="qt6-base-private-devel qt6-declarative-private-devel
  qt6-svg-devel zlib-devel
  pciutils-devel opus-devel libxslt-devel libxml2-devel ffmpeg6-devel
@@ -81,24 +81,9 @@ else
 	 -DQT_FEATURE_qtwebengine_quick_build=OFF"
 fi
 
-
-_bootstrap_gn() {
-	# Bootstrap gn (generate ninja)
-	echo "Bootstrapping 'gn'"
-	cd ${wrksrc}/src/3rdparty/gn
-	CFLAGS="$CFLAGS_host" CXXFLAGS="$CXXFLAGS_host" LDFLAGS="$LDFLAGS_host" \
-	PKGCONFIG=/usr/bin/pkgconfig PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig" \
-		python3 build/gen.py --no-last-commit-position --out-path \
-			${wrksrc}/src/3rdparty/gn/out/Release --cc "${CC_host:-$CC}" \
-			--cxx "${CXX_host:-$CXX}" --ld "${CXX_host:-$CXX}" --ar "${AR_host:-$AR}" \
-			--qt-version "${version}.qtwebengine.qt.io"
-	ninja -C out/Release gn
-	cd ${wrksrc}
-}
-
 _unbundle_libs() {
 	cd ${wrksrc}/src/3rdparty/chromium
-	echo Dropping bundled libs from chromium
+	msg "Dropping bundled libs from chromium\n"
 	# Use system-provided libraries.
 	# TODO: use_system_hunspell (upstream changes needed).
 	# TODO: use_system_libsrtp.
@@ -150,21 +135,13 @@ pre_configure() {
 	ln -s ${py3_sitelib}/six.py src/3rdparty/chromium/third_party/catapult/third_party/six/six.py
 	ln -s ${py3_sitelib}/six.py src/3rdparty/chromium/third_party/wpt_tools/wpt/tools/third_party/six/six.py
 
-	_bootstrap_gn
 	# _unbundle_libs
 	_wrap_ninja
-	export PATH="$PATH:${wrksrc}/src/3rdparty/gn/out/Release"
 	export PKG_CONFIG_HOST=${PKG_CONFIG_FOR_BUILD}
 }
 
 pre_build() {
-	export PATH="$PATH:${wrksrc}/src/3rdparty/gn/out/Release"
 	export NINJAFLAGS="$makejobs"
-
-}
-
-pre_install() {
-	export PATH="$PATH:${wrksrc}/src/3rdparty/gn/out/Release"
 }
 
 post_install() {
