@@ -40,3 +40,7 @@ libGL libglvnd
 libEGL libglvnd
 libGLES libglvnd
 hunspell-en_GB hunspell-en_GB-all
+font:sans dejavu-fonts-ttf
+font:serif dejavu-fonts-ttf
+font:mono dejavu-fonts-ttf
+font:math dejavu-fonts-ttf
