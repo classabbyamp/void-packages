@@ -1,4 +1,4 @@
-From 06a58d44f2da5590879ea143006a32e571159561 Mon Sep 17 00:00:00 2001
+From 8f64582a5fb98b24e89bf818f5a9ba468dae5eac Mon Sep 17 00:00:00 2001
 From: Ilya Fedin <fedin-ilja2010@ya.ru>
 Date: Mon, 21 Oct 2024 01:55:18 +0400
 Subject: [PATCH 1/4] Use KDE's QtQuick-QtWidgets style bridge
@@ -10,18 +10,18 @@ Subject: [PATCH 1/4] Use KDE's QtQuick-QtWidgets style bridge
  3 files changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 5d8aeae..558ab7e 100644
+index 475a47f..ac46b16 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -31,7 +31,7 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060200 -DUSE_WIDGETS -DQT_DEPRE
+@@ -32,7 +32,7 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060200 -DUSE_WIDGETS -DQT_DEPRE
  add_compile_options(-Wall -Wextra)
  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
  
 -find_package(Qt6 6.2 CONFIG REQUIRED COMPONENTS BuildInternals Core Widgets OPTIONAL_COMPONENTS LinguistTools)
 +find_package(Qt6 6.2 CONFIG REQUIRED COMPONENTS BuildInternals Core Widgets OPTIONAL_COMPONENTS QuickControls2 LinguistTools)
- 
- get_target_property(QT_QTPATHS_EXECUTABLE Qt6::qtpaths IMPORTED_LOCATION)
- 
+ if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
+     find_package(Qt6 6.10 CONFIG REQUIRED COMPONENTS WidgetsPrivate GuiPrivate)
+ endif()
 diff --git a/src/qt6ct-qtplugin/CMakeLists.txt b/src/qt6ct-qtplugin/CMakeLists.txt
 index 93a2b84..300d993 100644
 --- a/src/qt6ct-qtplugin/CMakeLists.txt
@@ -34,7 +34,7 @@ index 93a2b84..300d993 100644
 +target_link_libraries(qt6ct-qtplugin PRIVATE Qt6::Widgets Qt6::GuiPrivate $<TARGET_NAME_IF_EXISTS:Qt6::QuickControls2> qt6ct-common)
  install(TARGETS qt6ct-qtplugin DESTINATION ${PLUGINDIR}/platformthemes)
 diff --git a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
-index b90c801..cb27d8c 100644
+index 569b13f..c5934b5 100644
 --- a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 +++ b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 @@ -44,6 +44,9 @@
@@ -64,14 +64,14 @@ index b90c801..cb27d8c 100644
 GitLab
 
 
-From 91ac3b8efd5f086d127e729617bbf1cc2a9e7bd0 Mon Sep 17 00:00:00 2001
+From 4c834677151aa1ff23e38949fe3231073e06d08e Mon Sep 17 00:00:00 2001
 From: Ilya Fedin <fedin-ilja2010@ya.ru>
 Date: Mon, 21 Oct 2024 02:00:29 +0400
 Subject: [PATCH 2/4] Write widget style and icon theme to kdeglobals
 
 This allows to style applications that use KStyleManager
 ---
- CMakeLists.txt               |  1 +
+ CMakeLists.txt               |  2 ++
  src/qt6ct/CMakeLists.txt     |  3 ++-
  src/qt6ct/appearancepage.cpp | 12 ++++++++++++
  src/qt6ct/appearancepage.h   |  4 ++++
@@ -79,20 +79,21 @@ This allows to style applications that use KStyleManager
  src/qt6ct/iconthemepage.h    |  4 ++++
  src/qt6ct/mainwindow.cpp     |  8 ++++++++
  src/qt6ct/tabpage.h          |  8 ++++++++
- 8 files changed, 55 insertions(+), 1 deletion(-)
+ 8 files changed, 56 insertions(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 558ab7e..0cc9721 100644
+index ac46b16..10d34d6 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -32,6 +32,7 @@ add_compile_options(-Wall -Wextra)
- include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+@@ -37,6 +37,8 @@ if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
+     find_package(Qt6 6.10 CONFIG REQUIRED COMPONENTS WidgetsPrivate GuiPrivate)
+ endif()
  
- find_package(Qt6 6.2 CONFIG REQUIRED COMPONENTS BuildInternals Core Widgets OPTIONAL_COMPONENTS QuickControls2 LinguistTools)
 +find_package(KF6Config)
- 
++
  get_target_property(QT_QTPATHS_EXECUTABLE Qt6::qtpaths IMPORTED_LOCATION)
  
+ if(Qt6LinguistTools_FOUND)
 diff --git a/src/qt6ct/CMakeLists.txt b/src/qt6ct/CMakeLists.txt
 index fb0e1f7..7efe4eb 100644
 --- a/src/qt6ct/CMakeLists.txt
@@ -254,7 +255,7 @@ index c77b5a7..4e46ddd 100644
 GitLab
 
 
-From ee837c42fff5771504d6213f53878549f731ea51 Mon Sep 17 00:00:00 2001
+From 41d5a1a3583da54933d91cf192b053c09aed6f71 Mon Sep 17 00:00:00 2001
 From: Ilya Fedin <fedin-ilja2010@ya.ru>
 Date: Mon, 21 Oct 2024 01:47:18 +0400
 Subject: [PATCH 3/4] Add KDE color schemes support
@@ -272,12 +273,12 @@ Subject: [PATCH 3/4] Add KDE color schemes support
  9 files changed, 72 insertions(+), 7 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 0cc9721..b18a42e 100644
+index 10d34d6..3a1b2e5 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -33,6 +33,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+@@ -38,6 +38,7 @@ if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
+ endif()
  
- find_package(Qt6 6.2 CONFIG REQUIRED COMPONENTS BuildInternals Core Widgets OPTIONAL_COMPONENTS QuickControls2 LinguistTools)
  find_package(KF6Config)
 +find_package(KF6ColorScheme)
  
@@ -352,7 +353,7 @@ index f253987..7d6b283 100644
  
      static void registerStyleInstance(StyleInstance *instance);
 diff --git a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
-index cb27d8c..f43a29b 100644
+index c5934b5..487686e 100644
 --- a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 +++ b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 @@ -70,6 +70,9 @@ Qt6CTPlatformTheme::Qt6CTPlatformTheme()
@@ -402,7 +403,7 @@ index cb27d8c..f43a29b 100644
          m_palette = Qt6CT::loadColorScheme(schemePath, m_palette);
      }
      m_iconTheme = settings.value("icon_theme"_L1).toString();
-@@ -361,3 +373,17 @@ QString Qt6CTPlatformTheme::loadStyleSheets(const QStringList &paths)
+@@ -363,3 +375,17 @@ QString Qt6CTPlatformTheme::loadStyleSheets(const QStringList &paths)
      content.replace(regExp, u"\n"_s);
      return content;
  }
@@ -421,10 +422,10 @@ index cb27d8c..f43a29b 100644
 +    return QObject::eventFilter(obj, e);
 +}
 diff --git a/src/qt6ct-qtplugin/qt6ctplatformtheme.h b/src/qt6ct-qtplugin/qt6ctplatformtheme.h
-index 5312a64..80ac0a4 100644
+index b2a7bcf..37f7bdf 100644
 --- a/src/qt6ct-qtplugin/qt6ctplatformtheme.h
 +++ b/src/qt6ct-qtplugin/qt6ctplatformtheme.h
-@@ -66,6 +66,9 @@ public:
+@@ -70,6 +70,9 @@ public:
      //virtual QList<QKeySequence> keyBindings(QKeySequence::StandardKey key) const;
      //virtual QString standardButtonText(int button) const;
  
@@ -434,7 +435,7 @@ index 5312a64..80ac0a4 100644
  private slots:
      void applySettings();
  #ifdef QT_WIDGETS_LIB
-@@ -79,7 +82,7 @@ private:
+@@ -83,7 +86,7 @@ private:
      bool hasWidgets();
  #endif
      QString loadStyleSheets(const QStringList &paths);
@@ -522,7 +523,7 @@ index 31c26c6..8e4902e 100644
 GitLab
 
 
-From 6fa66ca94f1f8fa5119ad6669d5e3547f4077c1c Mon Sep 17 00:00:00 2001
+From 9d64a13ff6c376380901ef855f3c5e6a1f7afc0d Mon Sep 17 00:00:00 2001
 From: Ilya Fedin <fedin-ilja2010@ya.ru>
 Date: Mon, 21 Oct 2024 01:58:02 +0400
 Subject: [PATCH 4/4] Use KDE's icon engine
@@ -536,11 +537,11 @@ It has KDE color schemes support that prevents dark icons on dark background
  4 files changed, 18 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b18a42e..0d88aeb 100644
+index 3a1b2e5..2f2bb00 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -34,6 +34,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
- find_package(Qt6 6.2 CONFIG REQUIRED COMPONENTS BuildInternals Core Widgets OPTIONAL_COMPONENTS QuickControls2 LinguistTools)
+@@ -39,6 +39,7 @@ endif()
+ 
  find_package(KF6Config)
  find_package(KF6ColorScheme)
 +find_package(KF6IconThemes)
@@ -560,7 +561,7 @@ index 300d993..e5366ef 100644
 +target_compile_definitions(qt6ct-qtplugin PRIVATE $<$<TARGET_EXISTS:KF6::IconThemes>:KF_ICONTHEMES_LIB>)
  install(TARGETS qt6ct-qtplugin DESTINATION ${PLUGINDIR}/platformthemes)
 diff --git a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
-index f43a29b..cfcc9ec 100644
+index 487686e..2af0356 100644
 --- a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 +++ b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 @@ -55,6 +55,11 @@
@@ -590,10 +591,10 @@ index f43a29b..cfcc9ec 100644
  {
      if(!QGuiApplication::desktopSettingsAware() || m_isIgnored)
 diff --git a/src/qt6ct-qtplugin/qt6ctplatformtheme.h b/src/qt6ct-qtplugin/qt6ctplatformtheme.h
-index 80ac0a4..db66d33 100644
+index 37f7bdf..f0a4ac7 100644
 --- a/src/qt6ct-qtplugin/qt6ctplatformtheme.h
 +++ b/src/qt6ct-qtplugin/qt6ctplatformtheme.h
-@@ -62,7 +62,9 @@ public:
+@@ -66,7 +66,9 @@ public:
      //virtual QPixmap fileIconPixmap(const QFileInfo &fileInfo, const QSizeF &size,
      //                               QPlatformTheme::IconOptions iconOptions = 0) const;
  
