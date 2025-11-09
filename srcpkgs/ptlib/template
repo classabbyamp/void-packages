@@ -1,0 +1,25 @@
+# Template file for 'ptlib'
+pkgname=ptlib
+version=2.10.9.6
+revision=1
+build_style=gnu-configure
+hostmakedepends="pkg-config flex"
+short_desc="PTLib 2.10.9 fork for GNU Gatekeeper and H323Plus"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="MPL-1.0"
+homepage="https://github.com/willamowius/ptlib"
+distfiles="https://github.com/willamowius/ptlib/archive/refs/tags/v${version//./_}.tar.gz"
+checksum=22653cbb7d94ceafea35a9eb0f8f96afe8f0ffc8cd4cb08ce00d6c62d5e11bb8
+
+ptlib-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/share
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+		vmove usr/bin/ptlib-config
+	}
+}
