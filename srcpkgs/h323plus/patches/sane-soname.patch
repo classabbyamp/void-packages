@@ -1,0 +1,33 @@
+don't include the platform and architecture in the SONAME
+
+--- a/openh323u.mak.in
++++ b/openh323u.mak.in
+@@ -133,7 +133,7 @@
+ endif # OH323_SUFFIX
+ endif # HAS_PTLIB_LIB_MAK
+ 
+-OH323_BASE  = h323_$(PLATFORM_TYPE)_$(OH323_SUFFIX)$(LIB_TYPE)
++OH323_BASE  = h323
+ OH323_FILE  = lib$(OH323_BASE).$(LIB_SUFFIX)
+ 
+ LDFLAGS	    += -L$(OH323_LIBDIR)
+--- a/src/make/lib.mak
++++ b/src/make/lib.mak
+@@ -22,7 +22,7 @@
+ # The Initial Developer of the Original Code is Equivalence Pty. Ltd.
+ #
+ # Contributor(s): ______________________________________.
+-#       
++#
+ # $Revision$
+ # $Author$
+ # $Date$
+@@ -42,6 +42,8 @@
+   endif
+ endif
+ 
++LIBNAME_PAT = ${LIB_FILENAME}.${LIBh323_VERSION}
++
+ LIB_SONAME	= $(LIBNAME_PAT)
+ 
+ ifneq ($(P_SHAREDLIB),1)

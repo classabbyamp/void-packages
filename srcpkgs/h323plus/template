@@ -1,0 +1,23 @@
+# Template file for 'h323plus'
+pkgname=h323plus
+version=1.28.0
+revision=1
+build_style=gnu-configure
+hostmakedepends="pkg-config ptlib-devel"
+makedepends="ptlib-devel speex-devel"
+short_desc="Development framework for H.323 applications"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="MPL-1.1"
+homepage="https://www.h323plus.org"
+distfiles="https://github.com/willamowius/h323plus/archive/refs/tags/v${version//./_}.tar.gz"
+checksum=cde10139eb3e5c725185ecec57da9d8fc98f4bdddec7786e1cace7de4ce1ac06
+
+h323plus-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/share
+		vmove "usr/lib/*.so"
+	}
+}
