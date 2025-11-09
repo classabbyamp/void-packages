@@ -1,0 +1,41 @@
+# Template file for 'yate'
+pkgname=yate
+version=6.4.0
+revision=1
+_commit=a9632e0e8f04189a32bea5763f0aaa1428e3aee0
+build_style=gnu-configure
+configure_args="--without-libqt4"
+make_install_target="install-noapi"
+hostmakedepends="pkg-config autoconf automake which"
+makedepends="speex-devel ptlib-devel h323plus-devel libilbc-devel lksctp-tools-devel
+ libgsm-devel spandsp-devel alsa-lib-devel libusb-devel zlib-devel openssl-devel
+ sqlite-devel postgresql-libs-devel"
+short_desc="Yet Another Telephony Engine"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="GPL-2.0-or-later"
+homepage="https://www.yate.ro/"
+distfiles="https://github.com/yatevoip/yate/archive/${_commit}.tar.gz"
+checksum=a2dffeb0c5d093a6785ec536acd8896cf9e5bd20813ef302bcef503eba35a2cd
+
+if [ "$XBPS_TARGET_LIBC" = musl ]; then
+	CFLAGS="-DPTHREAD_MUTEX_RECURSIVE_NP=PTHREAD_MUTEX_RECURSIVE"
+fi
+
+pre_configure() {
+	./autogen.sh
+}
+
+post_install() {
+	vsv yate
+}
+
+yate-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/bin/yate-config
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
