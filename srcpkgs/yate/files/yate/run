@@ -1,4 +1,4 @@
 #!/bin/sh
 exec 2>&1
 [ -r ./conf ] && . ./conf
-exec yate ${OPTS}
+exec chpst -u _yate:_yate yate ${OPTS}

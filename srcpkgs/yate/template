@@ -17,9 +17,19 @@ homepage="https://www.yate.ro/"
 distfiles="https://github.com/yatevoip/yate/archive/${_commit}.tar.gz"
 checksum=a2dffeb0c5d093a6785ec536acd8896cf9e5bd20813ef302bcef503eba35a2cd
 
+system_accounts="_yate"
+_yate_homedir="/var/lib/yate"
+
+make_dirs="/var/lib/yate 0750 _yate _yate"
+conf_files="/etc/yate/*.conf"
+
 if [ "$XBPS_TARGET_LIBC" = musl ]; then
 	CFLAGS="-DPTHREAD_MUTEX_RECURSIVE_NP=PTHREAD_MUTEX_RECURSIVE"
 fi
+
+case "$XBPS_TARGET_ARCH" in
+	x86_64*|i686*) configure_args+=" --enable-sse2" ;;
+esac
 
 pre_configure() {
 	./autogen.sh
@@ -27,6 +37,8 @@ pre_configure() {
 
 post_install() {
 	vsv yate
+	# no qt4 ui, useless
+	rm -r "${DESTDIR}/usr/share/yate/skins"
 }
 
 yate-devel_package() {
