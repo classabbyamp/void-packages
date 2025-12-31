@@ -1,7 +1,7 @@
 # Template file for 'dnsrecon'
 pkgname=dnsrecon
 version=1.4.0
-revision=2
+revision=3
 build_style=python3-pep517
 make_check_args="-k not(test_zone_transfer)"
 hostmakedepends="python3-wheel"
@@ -13,9 +13,10 @@ license="GPL-2.0-only"
 homepage="https://github.com/darkoperator/dnsrecon"
 distfiles="https://github.com/darkoperator/dnsrecon/archive/refs/tags/${version}.tar.gz"
 checksum=08887a1dd457ceb3ba4e07f78b2474c7bef20509a19dfcaf00639ff92ebce13b
+replaces="python3-dnsrecon>=0"
 
 python3-dnsrecon_package() {
-	depends="${sourcepkg}"
+	depends="${sourcepkg}>=${version}_${revision}"
 	metapackage=yes
 	short_desc+=" (transitional dummy package)"
 }
