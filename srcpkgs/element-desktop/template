@@ -1,7 +1,7 @@
 # Template file for 'element-desktop'
 pkgname=element-desktop
 version=1.11.106
-revision=1
+revision=2
 _electronver=35
 create_wrksrc=yes
 build_helper="rust"
@@ -20,6 +20,7 @@ distfiles="https://github.com/vector-im/element-desktop/archive/v${version}.tar.
  https://github.com/vector-im/element-web/archive/v${version}.tar.gz>element-web-v${version}.tar.gz"
 checksum="c6598ff1736dc8cc0e48141420ce9a78c1354d773e477d3f803859460ac27f3f
  8c92be4ceac34c5e476eb7a3975920d7c65b03177e70ef1d4aa79108b9ec147e"
+replaces="riot-desktop>=0"
 
 export USE_SYSTEM_APP_BUILDER=true
 
@@ -128,7 +129,7 @@ do_install() {
 }
 
 riot-desktop_package() {
-	depends="element-desktop"
+	depends="element-desktop>=${version}_${revision}"
 	short_desc+=" (transitional dummy package)"
 	metapackage=yes
 }
