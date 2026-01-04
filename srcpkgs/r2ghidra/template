@@ -1,0 +1,30 @@
+# Template file for 'r2ghidra'
+pkgname=r2ghidra
+version=6.0.8
+revision=1
+_ghidra_version=0.6.4
+build_style=meson
+#configure_args=""
+hostmakedepends="radare2 pkg-config"
+makedepends="radare2-devel pugixml-devel"
+short_desc="Native Ghidra Decompiler for r2"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="LGPL-3.0-only"
+homepage="https://github.com/radareorg/r2ghidra"
+changelog="https://github.com/radareorg/r2ghidra/releases"
+distfiles="https://github.com/radareorg/r2ghidra/archive/refs/tags/${version}.tar.gz
+ https://github.com/radareorg/ghidra-native/archive/refs/tags/${_ghidra_version}.tar.gz>ghidra-native-${_ghidra_version}.tar.gz"
+checksum="535e57956884ac2b1f06dcb95c141fb7504627ef6d16ca07acdc44d49889fda4
+ 4d62785433d952dfe78ceba14938ec2cf7aec0136e1226c1a635c58c60b06fcb"
+skip_extraction="ghidra-native-${_ghidra_version}.tar.gz"
+
+post_extract() {
+	vsrcextract -C subprojects/ghidra-native "ghidra-native-${_ghidra_version}.tar.gz"
+	cp -rf subprojects/packagefiles/ghidra-native/* subprojects/ghidra-native
+}
+
+post_patch() {
+	for patch in subprojects/ghidra-native/patches/*.patch; do
+		patch -d subprojects/ghidra-native -Np1 <"$patch"
+	done
+}

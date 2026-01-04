@@ -3216,6 +3216,7 @@ libr_anal.so.5.9.8 radare2-5.9.8_1
 libr_lang.so.5.9.8 radare2-5.9.8_1
 libr_debug.so.5.9.8 radare2-5.9.8_1
 libr_egg.so.5.9.8 radare2-5.9.8_1
+libr_esil.so.5.9.8 radare2-5.9.8_1
 libr_bp.so.5.9.8 radare2-5.9.8_1
 libr_search.so.5.9.8 radare2-5.9.8_1
 libr_io.so.5.9.8 radare2-5.9.8_1
