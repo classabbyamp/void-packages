@@ -1,7 +1,7 @@
 # Template file for 'base-chroot'
 pkgname=base-chroot
 version=0.67
-revision=4
+revision=5
 bootstrap=yes
 metapackage=yes
 short_desc="Minimal set of packages required for chroot with xbps-src"
@@ -24,5 +24,5 @@ depends+="
  chroot-util-linux chroot-git tzdata"
 
 if [ "$CHROOT_READY" ]; then
-	depends+=" ccache"
+	depends+=" ccache sccache"
 fi
