@@ -1,0 +1,27 @@
+# Template file for 'sccache'
+pkgname=sccache
+version=0.13.0+1
+revision=1
+build_style=cargo
+make_check_args="-- --skip test_run_log_no_perm --skip test_ldd_parse_v2_30"
+hostmakedepends="pkg-config"
+makedepends="openssl-devel libzstd-devel"
+checkdepends="clang"
+short_desc="Ccache-like tool for rust and more"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="Apache-2.0"
+homepage="https://crates.io/crates/sccache"
+changelog="https://github.com/mozilla/sccache/releases"
+distfiles="https://github.com/mozilla/sccache/archive/316b8072f7be3bb9dede19c0c0a2fcbaafe37e64.tar.gz"
+checksum=c76b61d4ecada589665c39ef9cc412e6167697d8cbdecea4f5f6cc290582e67e
+
+case "$XBPS_TARGET_MACHINE" in
+	x86_64*|i686*|arm*|aarch64*) ;;
+	*) broken="ftbfs in ring" ;;
+esac
+
+rust-sccache_package() {
+	short_desc+=" (transitional dummy package)"
+	depends="${sourcepkg}>=${version}_${revision}"
+	metapackage=yes
+}
