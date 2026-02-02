@@ -1,0 +1,12 @@
+# Template file for 'wb32-dfu-updater'
+pkgname=wb32-dfu-updater
+version=1.0.0
+revision=1
+build_style=cmake
+makedepends="libusb-devel"
+short_desc="USB programmer for downloading/uploading firmware for WestberryTech MCUs"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="Apache-2.0"
+homepage="https://github.com/WestberryTech/wb32-dfu-updater"
+distfiles="https://github.com/WestberryTech/wb32-dfu-updater/archive/refs/tags/${version}.tar.gz"
+checksum=2b1c5b5627723067168af9740cb25c5c179634e133e4ced06028462096de5699
