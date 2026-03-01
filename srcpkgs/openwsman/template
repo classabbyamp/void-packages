@@ -1,0 +1,33 @@
+# Template file for 'openwsman'
+pkgname=openwsman
+version=2.8.1
+revision=1
+build_style=cmake
+configure_args="-DBUILD_PYTHON=OFF -DBUILD_PYTHON3=OFF -DBUILD_RUBY_GEM=OFF -DBUILD_JAVA=OFF"
+conf_files="/etc/openwsman/openwsman.conf /etc/openwsman/openwsman_client.conf
+ /etc/openwsman/ssleay.cnf"
+hostmakedepends="pkg-config"
+makedepends="libcurl-devel libxml2-devel openssl-devel sblim-sfcc-devel pam-devel"
+short_desc="Openwsman server implementation and client api"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="GPL-3.0-or-later"
+homepage="https://openwsman.github.io"
+#changelog=""
+distfiles="https://github.com/Openwsman/openwsman/archive/v${version}.tar.gz"
+checksum=22f7dd418eda4d6e4d1c497fcc2a3e2ee91eeff3c19f4a4447dfaec38fd2b87b
+
+post_install() {
+	mv "${DESTDIR}/usr/sbin/"* "${DESTDIR}/usr/bin"
+}
+
+openwsman-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		vmove "usr/lib/openwsman/authenticators/*.so"
+		vmove "usr/lib/openwsman/plugins/*.so"
+	}
+}

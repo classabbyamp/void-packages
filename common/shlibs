@@ -4576,3 +4576,6 @@ libgpiodcxx.so.2 libgpiod-2.2_4
 libcimcClientXML.so.0 sblim-sfcc-2.2.8_1
 libcmpisfcc.so.1 sblim-sfcc-2.2.8_1
 libcimcclient.so.0 sblim-sfcc-2.2.8_1
+libwsman.so.1 openwsman-2.8.1_1
+libwsman_client.so.5 openwsman-2.8.1_1
+libwsman_curl_client_transport.so.1 openwsman-2.8.1_1
