@@ -1,0 +1,23 @@
+# Template file for 'sblim-sfcc'
+pkgname=sblim-sfcc
+version=2.2.8
+revision=1
+build_style=gnu-configure
+makedepends="libcurl-devel"
+short_desc="Small Footprint CIM Client Library"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="EPL-1.0"
+homepage="https://sourceforge.net/projects/sblim/"
+distfiles="${SOURCEFORGE_SITE}/sblim/sblim-sfcc/sblim-sfcc-${version}.tar.bz2"
+checksum=1b8f187583bc6c6b0a63aae0165ca37892a2a3bd4bb0682cd76b56268b42c3d6
+
+sblim-sfcc-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/share/man/man3
+		vmove usr/include
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}
