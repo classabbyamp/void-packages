@@ -1,0 +1,23 @@
+# Template file for 'rhine'
+pkgname=rhine
+version=0.2.0
+revision=1
+build_style=zig-build
+configure_args="-Dpie"
+hostmakedepends="pkg-config wayland-devel"
+makedepends="wayland-devel wayland-protocols river-devel libxkbcommon-devel
+ libnotify-devel"
+depends="river>=0.4.0 channel"
+short_desc="Window manager for river supporting multiple layouts and animations"
+maintainer="classabbyamp <void@placeviolette.net>"
+license="AGPL-3.0-only"
+homepage="https://codeberg.org/Sivecano/rhine"
+distfiles="https://codeberg.org/Sivecano/rhine/archive/${version}.tar.gz"
+checksum=fc9d9981e989fd1bc4629b36236a75cf66132e58fd76cca9a6ce9dfd9891768a
+
+provides="river-wm-0_1"
+
+post_install() {
+	vlicense LICENSE
+	vsconf config.rh
+}

@@ -1,0 +1,74 @@
+From 83139a264fe0dae6666bab246683a6e2cba457f9 Mon Sep 17 00:00:00 2001
+From: Sivecano <sivecano@gmail.com>
+Date: Thu, 25 Jun 2026 00:41:30 +0200
+Subject: [PATCH] revert xkbcommon to @cImport
+
+---
+ build.zig        | 12 +-----------
+ src/keybinds.zig |  2 +-
+ src/xkb.h        |  1 -
+ 3 files changed, 2 insertions(+), 13 deletions(-)
+ delete mode 100644 src/xkb.h
+
+diff --git a/build.zig b/build.zig
+index c0c53fc..73d6661 100644
+--- a/build.zig
++++ b/build.zig
+@@ -55,15 +55,8 @@ pub fn build(b: *Build) !void {
+     const opt = b.addOptions();
+     opt.addOption(bool, "libnotify", libnotify);
+ 
+-    const keysyms = b.addTranslateC(.{
+-        .optimize = optimize,
+-        .target = target,
+-        .root_source_file = b.path("src/xkb.h"),
+-    });
+-
+     // this only sets include files,
+     // we don't actually have any symbols to link against
+-    keysyms.linkSystemLibrary("xkbcommon", .{});
+ 
+     const exe = b.addExecutable(.{
+         .name = "rhine",
+@@ -72,10 +65,6 @@ pub fn build(b: *Build) !void {
+             .target = target,
+             .optimize = optimize,
+             .link_libc = true,
+-            .imports = &.{.{
+-                .name = "keysysms",
+-                .module = keysyms.createModule(),
+-            }},
+         }),
+     });
+ 
+@@ -85,6 +74,7 @@ pub fn build(b: *Build) !void {
+ 
+     exe.root_module.addImport("tween", tween.module("mr_tween"));
+     exe.root_module.addImport("wayland", wayland);
++    exe.root_module.linkSystemLibrary("xkbcommon", .{});
+     exe.root_module.linkSystemLibrary("wayland-client", .{});
+ 
+     b.installArtifact(exe);
+diff --git a/src/keybinds.zig b/src/keybinds.zig
+index a6b1791..3a0074d 100644
+--- a/src/keybinds.zig
++++ b/src/keybinds.zig
+@@ -21,7 +21,7 @@ const Config = @import("config.zig");
+ pub const Sym = u32;
+ 
+ const syms: std.StaticStringMap(Sym) = .initComptime(kvs: {
+-    const xkb = @import("keysysms");
++    const xkb = @cImport(@cInclude("xkbcommon/xkbcommon-keysyms.h"));
+     const T = struct { []const u8, Sym };
+ 
+     var out: []const T = &.{};
+diff --git a/src/xkb.h b/src/xkb.h
+deleted file mode 100644
+index f0dfabe..0000000
+--- a/src/xkb.h
++++ /dev/null
+@@ -1 +0,0 @@
+-#include "xkbcommon/xkbcommon-keysyms.h"
+-- 
+2.53.0
+

@@ -1,0 +1,29 @@
+From 47c57637c5e1cc6b354732809a5619df0273f543 Mon Sep 17 00:00:00 2001
+From: Sivecano <sivecano@gmail.com>
+Date: Thu, 25 Jun 2026 00:56:35 +0200
+Subject: [PATCH] add PIE option
+
+---
+ build.zig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/build.zig b/build.zig
+index 8e8ad2c..4327f67 100644
+--- a/build.zig
++++ b/build.zig
+@@ -8,6 +8,7 @@ pub fn build(b: *Build) !void {
+     const target = b.standardTargetOptions(.{});
+     const optimize = b.standardOptimizeOption(.{});
+     const libnotify = b.option(bool, "notify", "add libnotify support for sending notifications") orelse true;
++    const pie = b.option(bool, "pie", "build Position Independent Executable");
+ 
+     const tween = b.dependency("mr_tween", .{
+         .optimize = optimize,
+@@ -90,6 +91,7 @@ pub fn build(b: *Build) !void {
+     exe.root_module.addImport("tween", tween.module("mr_tween"));
+     exe.root_module.addImport("wayland", wayland);
+     exe.root_module.linkSystemLibrary("wayland-client", .{});
++    exe.pie = pie;
+ 
+     b.installArtifact(exe);
+     b.installFile("rhine.desktop", "share/wayland-sessions/rhine.desktop");
