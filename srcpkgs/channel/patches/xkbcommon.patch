@@ -1,0 +1,49 @@
+--- a/build.zig
++++ b/build.zig
+@@ -64,16 +64,8 @@
+         }),
+     });
+ 
+-    const translate_c = b.addTranslateC(.{
+-        .optimize = optimize,
+-        .target = target,
+-        .root_source_file = b.path("src/c_headers.h"),
+-    });
+-    translate_c.linkSystemLibrary("xkbcommon", .{});
+-
+     exe.root_module.addImport("wayland", wayland);
+     exe.root_module.addImport("tributary", mod_tributary);
+-    exe.root_module.addImport("c", translate_c.createModule());
+     exe.root_module.linkSystemLibrary("xkbcommon", .{});
+ 
+     b.installArtifact(exe);
+--- a/src/c_headers.h
++++ /dev/null
+@@ -1,2 +0,0 @@
+-#include <xkbcommon/xkbcommon.h>
+-#include <linux/input-event-codes.h>
+--- a/src/xkb_keymap.zig
++++ b/src/xkb_keymap.zig
+@@ -4,7 +4,7 @@
+ const mem = std.mem;
+ const posix = std.posix;
+ const system = posix.system;
+-const xkbcommon = @import("c");
++const xkbcommon = @cImport(@cInclude("xkbcommon/xkbcommon.h"));
+ const Manager = @import("management.zig");
+ const Config = tributary.Config;
+ const Io = std.Io;
+--- a/src/profile.zig
++++ b/src/profile.zig
+@@ -17,7 +17,10 @@
+ const Config = tributary.Config;
+ const LibDev = rwm.LibinputDeviceV1;
+ const Manager = @import("management.zig");
+-const c = @import("c");
++const c = @cImport({
++    @cInclude("xkbcommon/xkbcommon.h");
++    @cInclude("linux/input-event-codes.h");
++});
+ 
+ const Keyboard = struct {
+     const Repeat = struct {

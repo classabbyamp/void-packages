@@ -1,0 +1,18 @@
+--- a/build.zig
++++ b/build.zig
+@@ -6,6 +6,7 @@
+ pub fn build(b: *Build) !void {
+     const target = b.standardTargetOptions(.{});
+     const optimize = b.standardOptimizeOption(.{});
++    const pie = b.option(bool, "pie", "build Position Independent Executable");
+ 
+     const scanner = Scanner.create(b, .{});
+     const strip = b.option(bool, "strip", "strip executable");
+@@ -67,6 +68,7 @@
+     exe.root_module.addImport("wayland", wayland);
+     exe.root_module.addImport("tributary", mod_tributary);
+     exe.root_module.linkSystemLibrary("xkbcommon", .{});
++    exe.pie = pie;
+ 
+     b.installArtifact(exe);
+ 
